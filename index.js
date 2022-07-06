@@ -52,49 +52,49 @@ async function createFolderWithFile(folderPath) {
 
 
 // 2 way
-const fs = require('fs').promises;
-const path = require('path');
+// const fs = require('fs').promises;
+// const path = require('path');
 
-const nestingCountOfFolders = 2;
-let countOfCurrentFolder = 1;
+// const nestingCountOfFolders = 2;
+// let countOfCurrentFolder = 1;
 
-let pathOfFolders = __dirname;
+// let pathOfFolders = __dirname;
 
-while (countOfCurrentFolder <= nestingCountOfFolders) {
-    pathOfFolders = path.join(pathOfFolders, `folder${countOfCurrentFolder}`);
-    countOfCurrentFolder++;
-}
+// while (countOfCurrentFolder <= nestingCountOfFolders) {
+//     pathOfFolders = path.join(pathOfFolders, `folder${countOfCurrentFolder}`);
+//     countOfCurrentFolder++;
+// }
 
-countOfCurrentFolder = 1;
+// countOfCurrentFolder = 1;
 
-startTask();
+// startTask();
 
-async function startTask() {
-    await fs.mkdir(pathOfFolders, { recursive: true });
+// async function startTask() {
+//     await fs.mkdir(pathOfFolders, { recursive: true });
 
-    await readFolderAndAddFiles(path.join(__dirname, `folder${countOfCurrentFolder}`));
-}
+//     await readFolderAndAddFiles(path.join(__dirname, `folder${countOfCurrentFolder}`));
+// }
 
-async function readFolderAndAddFiles(pathFolder) {
-    const filePath = path.join(pathFolder, 'info.json');
+// async function readFolderAndAddFiles(pathFolder) {
+//     const filePath = path.join(pathFolder, 'info.json');
 
-    await fs.writeFile(filePath, '');
+//     await fs.writeFile(filePath, '');
 
-    const files = await fs.readdir(pathFolder, { withFileTypes: true });
+//     const files = await fs.readdir(pathFolder, { withFileTypes: true });
 
-    for (const file of files) {
-        if (file.isDirectory()) {
-            await readFolderAndAddFiles(path.join(pathFolder, file.name));
-        }
-    }
+//     for (const file of files) {
+//         if (file.isDirectory()) {
+//             await readFolderAndAddFiles(path.join(pathFolder, file.name));
+//         }
+//     }
 
-    const countOfFolders = files.filter(file => file.isDirectory()).length;
+//     const countOfFolders = files.filter(file => file.isDirectory()).length;
 
-    const data = JSON.stringify({
-        path: filePath,
-        countOfFolders,
-        countOfFiles: files.length - countOfFolders
-    });
+//     const data = JSON.stringify({
+//         path: filePath,
+//         countOfFolders,
+//         countOfFiles: files.length - countOfFolders
+//     });
 
-    await fs.writeFile(filePath, data);
-}
+//     await fs.writeFile(filePath, data);
+// }
